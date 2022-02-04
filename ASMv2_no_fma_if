@@ -1,0 +1,261 @@
+register fptype q = - M_SQRT1_2;
+register fptype h = 0.5;
+for (int i=0; i<set_num; i+=6){
+
+   //e[0] = read_cycles();
+
+   register fptype s = args[i].s;
+   register fptype s1 = args[i+1].s;
+   register fptype s2 = args[i+2].s;
+   register fptype s3 = args[i+3].s;
+   register fptype s4 = args[i+4].s;
+   register fptype s5 = args[i+5].s;
+
+   register fptype x =  args[i].strike;
+   register fptype x1 =  args[i+1].strike;
+   register fptype x2 =  args[i+2].strike;
+   register fptype x3 =  args[i+3].strike;
+   register fptype x4 =  args[i+4].strike;
+   register fptype x5 =  args[i+5].strike;
+
+   register fptype r = args[i].r;
+   register fptype r1 = args[i+1].r;
+   register fptype r2 = args[i+2].r;
+   register fptype r3 = args[i+3].r;
+   register fptype r4 = args[i+4].r;
+   register fptype r5 = args[i+5].r;
+
+   register fptype v =  args[i].v;
+   register fptype v1 =  args[i+1].v;
+   register fptype v2 =  args[i+2].v;
+   register fptype v3 =  args[i+3].v;
+   register fptype v4 =  args[i+4].v;
+   register fptype v5 =  args[i+5].v;
+
+   register fptype t = args[i].t;
+   register fptype t1 = args[i+1].t;
+   register fptype t2 = args[i+2].t;
+   register fptype t3 = args[i+3].t;
+   register fptype t4 = args[i+4].t;
+   register fptype t5 = args[i+5].t;
+
+   int xType = args[i].OptionType;
+   int xType1 = args[i+1].OptionType;
+   int xType2 = args[i+2].OptionType;
+   int xType3 = args[i+3].OptionType;
+   int xType4 = args[i+4].OptionType;
+   int xType5 = args[i+5].OptionType;
+
+   r = r*t;
+   r1 = r1*t1;
+   r2 = r2*t2;
+   r3 = r3*t3;
+   r4 = r4*t4;
+   r5 = r5*t5;
+
+   t = sqrtf(t);
+   t1 = sqrtf(t1);
+   t2 = sqrtf(t2);
+   t3 = sqrtf(t3);
+   t4 = sqrtf(t4);
+   t5 = sqrtf(t5);
+
+   v = v*t;
+   v1 = v1*t1;
+   v2 = v2*t2;
+   v3 = v3*t3;
+   v4 = v4*t4;
+   v5 = v5*t5;
+
+   t = s/x;
+   t1 = s1/x1;
+   t2 = s2/x2;
+   t3 = s3/x3;
+   t4 = s4/x4;
+   t5 = s5/x5;
+
+   t = logf(t);
+   t1 = logf(t1);
+   t2 = logf(t2);
+   t3 = logf(t3);
+   t4 = logf(t4);
+   t5 = logf(t5);
+
+   t = t+r;
+   t1 = t1+r1;
+   t2 = t2+r2;
+   t3 = t3+r3;
+   t4 = t4+r4;
+   t5 = t5+r5;
+
+   r = -r;
+   r1 = -r1;
+   r2 = -r2;
+   r3 = -r3;
+   r4 = -r4;
+   r5 = -r5;
+
+   t = t/v;
+   t1 = t1/v1;
+   t2 = t2/v2;
+   t3 = t3/v3;
+   t4 = t4/v4;
+   t5 = t5/v5;
+
+   r = expf(r);
+   r1 = expf(r1);
+   r2 = expf(r2);
+   r3 = expf(r3);
+   r4 = expf(r4);
+   r5 = expf(r5);
+
+   r = r*x;
+   r1 = r1*x1;
+   r2 = r2*x2;
+   r3 = r3*x3;
+   r4 = r4*x4;
+   r5 = r5*x5;
+
+   v = v*h;
+   v1 = v1*h;
+   v2 = v2*h;
+   v3 = v3*h;
+   v4 = v4*h;
+   v5 = v5*h;
+
+   x = t+v;
+   x1 = t1+v1;
+   x2 = t2+v2;
+   x3 = t3+v3;
+   x4 = t4+v4;
+   x5 = t5+v5;
+
+   t = t-v;
+   t1 = t1-v1;
+   t2 = t2-v2;
+   t3 = t3-v3;
+   t4 = t4-v4;
+   t5 = t5-v5;
+
+   x = x*q;
+   x1 = x1*q;
+   x2 = x2*q;
+   x3 = x3*q;
+   x4 = x4*q;
+   x5 = x5*q;
+
+   t = t*q;
+   t1 = t1*q;
+   t2 = t2*q;
+   t3 = t3*q;
+   t4 = t4*q;
+   t5 = t5*q;
+
+   x = erfcf(x);
+   x1 = erfcf(x1);
+   x2 = erfcf(x2);
+   x3 = erfcf(x3);
+   x4 = erfcf(x4);
+   x5 = erfcf(x5);
+
+   t = erfcf(t);
+   t1 = erfcf(t1);
+   t2 = erfcf(t2);
+   t3 = erfcf(t3);
+   t4 = erfcf(t4);
+   t5 = erfcf(t5);
+
+   x = x*h;
+   x1 = x1*h;
+   x2 = x2*h;
+   x3 = x3*h;
+   x4 = x4*h;
+   x5 = x5*h;
+
+   t = t*h;
+   t1 = t1*h;
+   t2 = t2*h;
+   t3 = t3*h;
+   t4 = t4*h;
+   t5 = t5*h;
+
+
+   if (xType == 'C') {
+      r = (r * t);
+      x = fmaf(s,x,-r);
+   } else {
+      x = (1.0 - x);
+      t = (1.0 - t);
+      x = (s * x);
+      x = fmaf(r,t,-x);
+   }
+   if (xType1 == 'C') {
+      r1 = (r1 * t1);
+      x1 = fmaf(s1,x1,-r1);
+   } else {
+      x1 = (1.0 - x1);
+      t1 = (1.0 - t1);
+      x1 = (s1 * x1);
+      x1 = fmaf(r1,t1,-x1);
+   }
+   if (xType2 == 'C') {
+      r2 = (r2 * t2);
+      x2 = fmaf(s2,x2,-r2);
+   } else {
+      x2 = (1.0 - x2);
+      t2 = (1.0 - t2);
+      x2 = (s2 * x2);
+      x2 = fmaf(r2,t2,-x2);
+   }
+   if (xType3 == 'C') {
+      r3 = (r3 * t3);
+      x3 = fmaf(s3,x3,-r3);
+   } else {
+      x3 = (1.0 - x3);
+      t3 = (1.0 - t3);
+      x3 = (s3 * x3);
+      x3 = fmaf(r3,t3,-x3);
+   }
+   if (xType4 == 'C') {
+      r4 = (r4 * t4);
+      x4 = fmaf(s4,x4,-r4);
+   } else {
+      x4 = (1.0 - x4);
+      t4 = (1.0 - t4);
+      x4 = (s4 * x4);
+      x4 = fmaf(r4,t4,-x4);
+   }
+   if (xType5 == 'C') {
+      r5 = (r5 * t5);
+      x5 = fmaf(s5,x5,-r5);
+   } else {
+      x5 = (1.0 - x5);
+      t5 = (1.0 - t5);
+      x5 = (s5 * x5);
+      x5 = fmaf(r5,t5,-x5);
+   }
+
+
+   result[i] =  x;
+   result[i+1] =  x1;
+   result[i+2] =  x2;
+   result[i+3] =  x3;
+   result[i+4] =  x4;
+   result[i+5] =  x5;
+
+  //  e[1] = read_cycles();
+
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+     

@@ -1,0 +1,555 @@
+   //kou imp
+   register fptype q8 = 1/sqrt(8);
+   register fptype q2 = sqrt(2);
+   for (int i=0; i<set_num; i++){
+
+      register fptype s = args[i].s;
+
+      register fptype x =  args[i].strike;
+
+      register fptype r = args[i].r;
+
+      register fptype v =  args[i].v;
+
+      register fptype t = args[i].t;
+
+      register fptype d;
+
+      register fptype l;
+
+      register fptype it;
+
+      register fptype st;
+
+      register fptype ll;
+
+      int xType = args[i].OptionType;
+
+
+      d = -v*q2;
+      l = log (s);
+      ll = log (x);
+
+      r = r*t;
+      v = -v*q8;       //-v/sqrt(8)
+      st = sqrt(t);
+      d = rcp(d);    //d = -1/v*sqrt(2)
+      it = rsqrt(t);
+      l = l - ll ;     // l=log(s/x)
+      ll = -1*r;       //x=-rt
+      d = d * it;     //d = -1/v*sqrt(2)*sqrt(t)
+      l = l + r ;     //l = log(s/x) + rt
+      v = v * st;     //v = -v*sqrt(t)/sqrt(8)
+      d = d * l;      //d = (-1/v*sqrt(t)*sqrt(2))  (ln(s/x) + rt)
+      ll = exp(ll);
+
+      r = d + v;  //d1
+      t = d - v;  //d2
+
+      r = erfc(r);
+      v = erfc(t);
+
+      r = r*0.5;
+      v = v*0.5;
+
+      x = x*ll;
+
+      if (xType == 'C') {
+          t = (s * r) - (x *  v);
+      } else {
+          r = (1.0 - r);
+          v = (1.0 - v);
+          t = (x * v) - (s * r);
+      }
+      result[i] =   t;
+   }
+      
+  register fptype q8 = 1/sqrtf(8);
+  register fptype q2 = sqrtf(2);
+  for (int i=0; i<set_num; i+=4){
+
+      fptype s = args[i].s;
+      fptype s1 = args[i+1].s;
+      fptype s2 = args[i+2].s;
+      fptype s3 = args[i+3].s;
+
+      fptype x =  args[i].strike;
+      fptype x1 =  args[i+1].strike;
+      fptype x2 =  args[i+2].strike;
+      fptype x3 =  args[i+3].strike;
+
+      fptype r = args[i].r;
+      fptype r1 = args[i+1].r;
+      fptype r2 = args[i+2].r;
+      fptype r3 = args[i+3].r;
+
+      fptype v =  args[i].v;
+      fptype v1 =  args[i+1].v;
+      fptype v2 =  args[i+2].v;
+      fptype v3 =  args[i+3].v;
+
+      fptype t = args[i].t;
+      fptype t1 = args[i+1].t;
+      fptype t2 = args[i+2].t;
+      fptype t3 = args[i+3].t;
+
+      int xType = args[i].OptionType;
+      int xType1 = args[i+1].OptionType;
+      int xType2 = args[i+2].OptionType;
+      int xType3 = args[i+3].OptionType;
+
+     fptype d;
+     fptype d1;
+     fptype d2;
+     fptype d3;
+
+     fptype l;
+     fptype l1;
+     fptype l2;
+     fptype l3;
+
+     fptype it;
+     fptype it1;
+     fptype it2;
+     fptype it3;
+
+     fptype st;
+     fptype st1;
+     fptype st2;
+     fptype st3;
+
+     fptype ll;
+     fptype ll1;
+     fptype ll2;
+     fptype ll3;
+
+
+     d = -v*q2;
+     d1 = -v1*q2;
+     d2 = -v2*q2;
+     d3 = -v3*q2;
+
+     l = logf (s);
+     l1 = logf (s1);
+     l2 = logf (s2);
+     l3 = logf (s3);
+
+     ll = logf (x);
+     ll1 = logf (x1);
+     ll2 = logf (x2);
+     ll3 = logf (x3);
+
+     r = r*t;
+     r1 = r1*t1;
+     r2 = r2*t2;
+     r3 = r3*t3;
+
+     v = -v*q8;       //-v/sqrt(8)
+     v1 = -v1*q8;
+     v2 = -v2*q8;
+     v3 = -v3*q8;
+
+     st = sqrtf(t);
+     st1 = sqrtf(t1);
+     st2 = sqrtf(t2);
+     st3 = sqrtf(t3);
+
+     d = rcpf(d);    //d = -1/v*sqrt(2)
+     d1 = rcpf(d1);
+     d2 = rcpf(d2);
+     d3 = rcpf(d3);
+
+     it = rsqrtf(t);
+     it1 = rsqrtf(t1);
+     it2 = rsqrtf(t2);
+     it3 = rsqrtf(t3);
+
+     l = l - ll ;     // l=log(s/x)
+     l1 = l1 - ll1 ;
+     l2 = l2 - ll2 ;
+     l3 = l3 - ll3 ;
+
+     ll = -r;       //x=-rt
+     ll1 = -r1;
+     ll2 = -r2;
+     ll3 = -r3;
+
+     d = d * it;     //d = -1/v*sqrt(2)*sqrt(t)
+     d1 = d1 * it1;
+     d2 = d2 * it2;
+     d3 = d3 * it3;
+
+     l = l + r ;     //l = log(s/x) + rt
+     l1 = l1 + r1 ;
+     l2 = l2 + r2 ;
+     l3 = l3 + r3 ;
+
+     v = v * st;     //v = -v*sqrt(t)/sqrt(8)
+     v1 = v1 * st1;
+     v2 = v2 * st2;
+     v3 = v3 * st3;
+
+     d = d * l;      //d = (-1/v*sqrt(t)*sqrt(2))  (ln(s/x) + rt)
+     d1 = d1 * l1;
+     d2 = d2 * l2;
+     d3 = d3 * l3;
+
+     ll = expf(ll);
+     ll1 = expf(ll1);
+     ll2 = expf(ll2);
+     ll3 = expf(ll3);
+
+     r = d + v;  //d1
+     r1 = d1 + v1;
+     r2 = d2 + v2;
+     r3 = d3 + v3;
+
+     t = d - v;  //d2
+     t1 = d1 - v1;
+     t2 = d2 - v2;
+     t3 = d3 - v3;
+
+     r = erfcf(r);
+     r1 = erfcf(r1);
+     r2 = erfcf(r2);
+     r3 = erfcf(r3);
+
+     v = erfcf(t);
+     v1 = erfcf(t1);
+     v2 = erfcf(t2);
+     v3 = erfcf(t3);
+
+     r = r*0.5;
+     r1 = r1*0.5;
+     r2 = r2*0.5;
+     r3 = r3*0.5;
+
+     v = v*0.5;
+     v1 = v1*0.5;
+     v2 = v2*0.5;
+     v3 = v3*0.5;
+
+     x = x*ll;
+     x1 = x1*ll1;
+     x2 = x2*ll2;
+     x3 = x3*ll3;
+
+     if (xType == 'C') {
+         t = (s * r) - (x *  v);
+     } else {
+         r = (1.0 - r);
+         v = (1.0 - v);
+         t = (x * v) - (s * r);
+     }
+     if (xType1 == 'C') {
+         t1 = (s1 * r1) - (x1 *  v1);
+     } else {
+         r1 = (1.0 - r1);
+         v1 = (1.0 - v1);
+         t1 = (x1 * v1) - (s1 * r1);
+     }
+     if (xType2 == 'C') {
+         t2 = (s2 * r2) - (x2 *  v2);
+     } else {
+         r2 = (1.0 - r2);
+         v2 = (1.0 - v2);
+         t2 = (x2 * v2) - (s2 * r2);
+     }
+     if (xType3 == 'C') {
+         t3 = (s3 * r3) - (x3 *  v3);
+     } else {
+         r3 = (1.0 - r3);
+         v3 = (1.0 - v3);
+         t3 = (x3 * v3) - (s3 * r3);
+     }
+
+     result[i] =   t;
+     result[i+1] =   t1;
+     result[i+2] =   t2;
+     result[i+3] =   t3;
+ }
+  //===========================================================================
+  
+  
+  //kou imp
+   register fptype q8 = 1/sqrt(8);
+   register fptype q2 = sqrt(2);
+   for (int i=0; i<set_num; i++){
+
+      register fptype s = args[i].s;
+
+      register fptype x =  args[i].strike;
+
+      register fptype r = args[i].r;
+
+      register fptype v =  args[i].v;
+
+      register fptype t = args[i].t;
+
+      register fptype d;
+
+      register fptype l;
+
+      register fptype st;
+
+      register fptype ll;
+
+      int xType = args[i].OptionType;
+
+
+      d = -v*q2;
+      l = log (s);
+      ll = log (x);
+
+      r = r*t;
+      v = -v*q8;       //-v/sqrt(8)
+      st = sqrt(t);
+      d = rcp(d);    //d = -1/v*sqrt(2)
+      t = rsqrt(t);
+      l = l - ll ;     // l=log(s/x)
+      ll = -r;       //x=-rt
+      d = d * t;     //d = -1/v*sqrt(2)*sqrt(t)
+      l = l + r ;     //l = log(s/x) + rt
+      v = v * st;     //v = -v*sqrt(t)/sqrt(8)
+      d = d * l;      //d = (-1/v*sqrt(t)*sqrt(2))  (ln(s/x) + rt)
+      ll = exp(ll);
+
+      r = d + v;  //d1
+      t = d - v;  //d2
+
+      r = erfc(r);
+      v = erfc(t);
+
+      x = x*ll;
+
+      r = r*0.5;
+      v = v*0.5;
+
+      if (xType == 'C') {
+          t = (s * r) - (x *  v);
+      } else {
+          r = (1.0 - r);
+          v = (1.0 - v);
+          t = (x * v) - (s * r);
+      }
+	 result[i] =   t;
+   }
+
+
+register fptype q8 = 1/sqrtf(8);
+  register fptype q2 = sqrtf(2);
+  for (int i=0; i<set_num; i+=4){
+e[0] = read_cycles();
+      fptype s = args[i].s;
+      fptype s1 = args[i+1].s;
+      fptype s2 = args[i+2].s;
+      fptype s3 = args[i+3].s;
+
+      fptype x =  args[i].strike;
+      fptype x1 =  args[i+1].strike;
+      fptype x2 =  args[i+2].strike;
+      fptype x3 =  args[i+3].strike;
+
+      fptype r = args[i].r;
+      fptype r1 = args[i+1].r;
+      fptype r2 = args[i+2].r;
+      fptype r3 = args[i+3].r;
+
+      fptype v =  args[i].v;
+      fptype v1 =  args[i+1].v;
+      fptype v2 =  args[i+2].v;
+      fptype v3 =  args[i+3].v;
+
+      fptype t = args[i].t;
+      fptype t1 = args[i+1].t;
+      fptype t2 = args[i+2].t;
+      fptype t3 = args[i+3].t;
+
+      int xType = args[i].OptionType;
+      int xType1 = args[i+1].OptionType;
+      int xType2 = args[i+2].OptionType;
+      int xType3 = args[i+3].OptionType;
+
+     fptype d;
+     fptype d1;
+     fptype d2;
+     fptype d3;
+
+     fptype l;
+     fptype l1;
+     fptype l2;
+     fptype l3;
+
+     fptype st;
+     fptype st1;
+     fptype st2;
+     fptype st3;
+
+     fptype ll;
+     fptype ll1;
+     fptype ll2;
+     fptype ll3;
+
+
+     d = -v*q2;
+     d1 = -v1*q2;
+     d2 = -v2*q2;
+     d3 = -v3*q2;
+
+     l = logf (s);
+     l1 = logf (s1);
+     l2 = logf (s2);
+     l3 = logf (s3);
+
+     ll = logf (x);
+     ll1 = logf (x1);
+     ll2 = logf (x2);
+     ll3 = logf (x3);
+
+     r = r*t;
+     r1 = r1*t1;
+     r2 = r2*t2;
+     r3 = r3*t3;
+
+     v = -v*q8;       //-v/sqrt(8)
+     v1 = -v1*q8;
+     v2 = -v2*q8;
+     v3 = -v3*q8;
+
+     st = sqrtf(t);
+     st1 = sqrtf(t1);
+     st2 = sqrtf(t2);
+     st3 = sqrtf(t3);
+
+     d = rcpf(d);    //d = -1/v*sqrt(2)
+     d1 = rcpf(d1);
+     d2 = rcpf(d2);
+     d3 = rcpf(d3);
+
+     t = rsqrtf(t);
+     t1 = rsqrtf(t1);
+     t2 = rsqrtf(t2);
+     t3 = rsqrtf(t3);
+
+     l = l - ll ;     // l=log(s/x)
+     l1 = l1 - ll1 ;
+     l2 = l2 - ll2 ;
+     l3 = l3 - ll3 ;
+
+     ll = -r;       //x=-rt
+     ll1 = -r1;
+     ll2 = -r2;
+     ll3 = -r3;
+
+     d = d * t;     //d = -1/v*sqrt(2)*sqrt(t)
+     d1 = d1 * t1;
+     d2 = d2 * t2;
+     d3 = d3 * t3;
+
+     l = l + r ;     //l = log(s/x) + rt
+     l1 = l1 + r1 ;
+     l2 = l2 + r2 ;
+     l3 = l3 + r3 ;
+
+     v = v * st;     //v = -v*sqrt(t)/sqrt(8)
+     v1 = v1 * st1;
+     v2 = v2 * st2;
+     v3 = v3 * st3;
+
+     d = d * l;      //d = (-1/v*sqrt(t)*sqrt(2))  (ln(s/x) + rt)
+     d1 = d1 * l1;
+     d2 = d2 * l2;
+     d3 = d3 * l3;
+
+     ll = expf(ll);
+     ll1 = expf(ll1);
+     ll2 = expf(ll2);
+     ll3 = expf(ll3);
+
+     r = d + v;  //d1
+     r1 = d1 + v1;
+     r2 = d2 + v2;
+     r3 = d3 + v3;
+
+     t = d - v;  //d2
+     t1 = d1 - v1;
+     t2 = d2 - v2;
+     t3 = d3 - v3;
+
+     r = erfcf(r);
+     r1 = erfcf(r1);
+     r2 = erfcf(r2);
+     r3 = erfcf(r3);
+
+     v = erfcf(t);
+     v1 = erfcf(t1);
+     v2 = erfcf(t2);
+     v3 = erfcf(t3);
+
+     x = x*ll;
+     x1 = x1*ll1;
+     x2 = x2*ll2;
+     x3 = x3*ll3;
+
+     r = r*0.5;
+     r1 = r1*0.5;
+     r2 = r2*0.5;
+     r3 = r3*0.5;
+
+     v = v*0.5;
+     v1 = v1*0.5;
+     v2 = v2*0.5;
+     v3 = v3*0.5;
+
+     if (xType == 'C') {
+         t = (s * r) - (x *  v);
+     } else {
+         r = (1.0 - r);
+         v = (1.0 - v);
+         t = (x * v) - (s * r);
+     }
+     if (xType1 == 'C') {
+         t1 = (s1 * r1) - (x1 *  v1);
+     } else {
+         r1 = (1.0 - r1);
+         v1 = (1.0 - v1);
+         t1 = (x1 * v1) - (s1 * r1);
+     }
+     if (xType2 == 'C') {
+         t2 = (s2 * r2) - (x2 *  v2);
+     } else {
+         r2 = (1.0 - r2);
+         v2 = (1.0 - v2);
+         t2 = (x2 * v2) - (s2 * r2);
+     }
+     if (xType3 == 'C') {
+         t3 = (s3 * r3) - (x3 *  v3);
+     } else {
+         r3 = (1.0 - r3);
+         v3 = (1.0 - v3);
+         t3 = (x3 * v3) - (s3 * r3);
+     }
+
+     result[i] =   t;
+     result[i+1] =   t1;
+     result[i+2] =   t2;
+     result[i+3] =   t3;e[1] = read_cycles();
+ }    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

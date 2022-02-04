@@ -1,0 +1,699 @@
+             register fptype OptionPrice;
+            register fptype OptionPrice1;
+            register fptype OptionPrice2;
+            register fptype OptionPrice3;
+
+            register fptype xStockPrice;
+            register fptype xStockPrice1;
+            register fptype xStockPrice2;
+            register fptype xStockPrice3;
+
+            register fptype xStrikePrice;
+            register fptype xStrikePrice1;
+            register fptype xStrikePrice2;
+            register fptype xStrikePrice3;
+
+            register fptype xRiskFreeRate;
+            register fptype xRiskFreeRate1;
+            register fptype xRiskFreeRate2;
+            register fptype xRiskFreeRate3;
+
+            register fptype xVolatility;
+            register fptype xVolatility1;
+            register fptype xVolatility2;
+            register fptype xVolatility3;
+
+            register fptype xTime;
+            register fptype xTime1;
+            register fptype xTime2;
+            register fptype xTime3;
+
+            register int xType ;
+            register int xType1;
+            register int xType2 ;
+            register int xType3;
+
+            fptype xSqrtTime;
+            fptype xSqrtTime1;
+            fptype xSqrtTime2;
+            fptype xSqrtTime3;
+
+            fptype xLogTerm;
+            fptype xLogTerm1;
+            fptype xLogTerm2;
+            fptype xLogTerm3;
+
+            fptype xD1;
+            fptype xD1_1;
+            fptype xD1_2;
+            fptype xD1_3;
+
+            fptype xD2;
+            fptype xD2_1;
+            fptype xD2_2;
+            fptype xD2_3;
+
+            fptype xPowerTerm;
+            fptype xPowerTerm1;
+            fptype xPowerTerm2;
+            fptype xPowerTerm3;
+
+            fptype xDen;
+            fptype xDen1;
+            fptype xDen2;
+            fptype xDen3;
+
+            fptype FutureValueX;
+            fptype FutureValueX1;
+            fptype FutureValueX2;
+            fptype FutureValueX3;
+
+            fptype NofXd1;
+            fptype NofXd1_1;
+            fptype NofXd1_2;
+            fptype NofXd1_3;
+
+            fptype NofXd2;
+            fptype NofXd2_1;
+            fptype NofXd2_2;
+            fptype NofXd2_3;
+
+            fptype NegNofXd1;
+            fptype NegNofXd1_1;
+            fptype NegNofXd1_2;
+            fptype NegNofXd1_3;
+
+            fptype NegNofXd2;
+            fptype NegNofXd2_1;
+            fptype NegNofXd2_2;
+            fptype NegNofXd2_3;
+
+            fptype XeTerm;
+            fptype XeTerm1;
+            fptype XeTerm2;
+            fptype XeTerm3;
+
+            xStockPrice = sptprice[i];
+            xStockPrice1 = sptprice[i+1];
+            xStockPrice2 = sptprice[i+2];
+            xStockPrice3 = sptprice[i+3];
+
+            xStrikePrice =  strike[i];
+            xStrikePrice1 =  strike[i+1];
+            xStrikePrice2 =  strike[i+2];
+            xStrikePrice3 =  strike[i+3];
+
+            xRiskFreeRate = rate[i];
+            xRiskFreeRate1 = rate[i+1];
+            xRiskFreeRate2 = rate[i+2];
+            xRiskFreeRate3 = rate[i+3];
+
+            xVolatility =  volatility[i];
+            xVolatility1 =  volatility[i+1];
+            xVolatility2 =  volatility[i+2];
+            xVolatility3 =  volatility[i+3];
+
+            xTime = otime[i];
+            xTime1 = otime[i+1];
+            xTime2 = otime[i+2];
+            xTime3 = otime[i+3];
+
+            xType = otype[i] ;
+            xType1 = otype[i+1];
+            xType2 = otype[i+2];
+            xType3 = otype[i+3];
+
+            xSqrtTime = sqrt(xTime);
+            xSqrtTime1 = sqrt(xTime1);
+            xSqrtTime2 = sqrt(xTime2);
+            xSqrtTime3 = sqrt(xTime3);
+
+            xLogTerm =  xStockPrice / xStrikePrice;
+            xLogTerm1 = xStockPrice1 / xStrikePrice1;
+            xLogTerm2 = xStockPrice2 / xStrikePrice2;
+            xLogTerm3 = xStockPrice3 / xStrikePrice3;
+
+            xLogTerm =   log( xLogTerm );
+            xLogTerm1 =  log( xLogTerm1 );
+            xLogTerm2 =  log( xLogTerm2 );
+            xLogTerm3 =  log( xLogTerm3 );
+
+            xPowerTerm = xVolatility * xVolatility;
+            xPowerTerm1 = xVolatility1 * xVolatility1;
+            xPowerTerm2 = xVolatility2 * xVolatility2;
+            xPowerTerm3 = xVolatility3 * xVolatility3;
+
+            xPowerTerm = xPowerTerm * 0.5;
+            xPowerTerm1 = xPowerTerm1 * 0.5;
+            xPowerTerm2 = xPowerTerm2 * 0.5;
+            xPowerTerm3 = xPowerTerm3 * 0.5;
+
+            xD1 = xRiskFreeRate + xPowerTerm;
+            xD1_1 = xRiskFreeRate1 + xPowerTerm1;
+            xD1_2 = xRiskFreeRate2 + xPowerTerm2;
+            xD1_3 = xRiskFreeRate3 + xPowerTerm3;
+
+            xD1 = xD1 * xTime;
+            xD1_1 = xD1_1 * xTime1;
+            xD1_2 = xD1_2 * xTime2;
+            xD1_3 = xD1_3 * xTime3;
+
+            xD1 = xD1 + xLogTerm;
+            xD1_1 = xD1_1 + xLogTerm1;
+            xD1_2 = xD1_2 + xLogTerm2;
+            xD1_3 = xD1_3 + xLogTerm3;
+
+            xDen = xVolatility * xSqrtTime;
+            xDen1 = xVolatility1 * xSqrtTime1;
+            xDen2 = xVolatility2 * xSqrtTime2;
+            xDen3 = xVolatility3 * xSqrtTime3;
+
+            xD1 = xD1 / xDen;
+            xD1_1 = xD1_1 / xDen1;
+            xD1_2 = xD1_2 / xDen2;
+            xD1_3 = xD1_3 / xDen3;
+
+            xD2 = xD1 -  xDen;
+            xD2_1 = xD1_1 -  xDen1;
+            xD2_2 = xD1_2 -  xDen2;
+            xD2_3 = xD1_3 -  xDen3;
+
+            NofXd1 = -xD1*xQ2;
+            NofXd1_1 = -xD1_1*xQ2;
+            NofXd1_2 = -xD1_2*xQ2;
+            NofXd1_3 = -xD1_3*xQ2;
+
+            NofXd2 = -xD2*xQ2;
+            NofXd2_1 = -xD2_1*xQ2;
+            NofXd2_2 = -xD2_2*xQ2;
+            NofXd2_3 = -xD2_3*xQ2;
+
+            NofXd1 = erfc(NofXd1);
+            NofXd1_1 = erfc(NofXd1_1);
+            NofXd1_2 = erfc(NofXd1_2);
+            NofXd1_3 = erfc(NofXd1_3);
+
+            NofXd2 = erfc(NofXd2);
+            NofXd2_1 = erfc(NofXd2_1);
+            NofXd2_2 = erfc(NofXd2_2);
+            NofXd2_3 = erfc(NofXd2_3);
+
+
+            NofXd1 = NofXd1*0.5;
+            NofXd1_1 = NofXd1_1*0.5;
+            NofXd1_2 = NofXd1_2*0.5;
+            NofXd1_3 = NofXd1_3*0.5;
+
+
+            NofXd2 = NofXd2*0.5;
+            NofXd2_1 = NofXd2_1*0.5;
+            NofXd2_2 = NofXd2_2*0.5;
+            NofXd2_3 = NofXd2_3*0.5;
+
+            XeTerm = exp( -(xRiskFreeRate)*(xTime) );
+            XeTerm1 = exp( -(xRiskFreeRate1)*(xTime1) );
+            XeTerm2 = exp( -(xRiskFreeRate2)*(xTime2) );
+            XeTerm3 = exp( -(xRiskFreeRate3)*(xTime3) );
+
+            FutureValueX = xStrikePrice * XeTerm;
+            FutureValueX1 = xStrikePrice1 * XeTerm1;
+            FutureValueX2 = xStrikePrice2 * XeTerm2;
+            FutureValueX3 = xStrikePrice3 * XeTerm3;
+
+
+            if (xType == 0) {
+                OptionPrice = (xStockPrice * NofXd1) - (FutureValueX * NofXd2);
+            } else {
+                NegNofXd1 = (1.0 - NofXd1);
+                NegNofXd2 = (1.0 - NofXd2);
+                OptionPrice = (FutureValueX * NegNofXd2) - (xStockPrice * NegNofXd1);
+            }
+
+            if (xType1 == 0) {
+                OptionPrice1 = (xStockPrice1 * NofXd1_1) - (FutureValueX1 * NofXd2_1);
+            } else {
+                NegNofXd1_1 = (1.0 - NofXd1_1);
+                NegNofXd2_1 = (1.0 - NofXd2_1);
+                OptionPrice1 = (FutureValueX1 * NegNofXd2_1) - (xStockPrice1 * NegNofXd1_1);
+            }
+
+            if (xType2 == 0) {
+                OptionPrice2 = (xStockPrice2 * NofXd1_2) - (FutureValueX2 * NofXd2_2);
+            } else {
+                NegNofXd1_2 = (1.0 - NofXd1_2);
+                NegNofXd2_2 = (1.0 - NofXd2_2);
+                OptionPrice2 = (FutureValueX2 * NegNofXd2_2) - (xStockPrice2 * NegNofXd1_2);
+            }
+
+            if (xType3 == 0) {
+                OptionPrice3 = (xStockPrice3 * NofXd1_3) - (FutureValueX3 * NofXd2_3);
+            } else {
+                NegNofXd1_3 = (1.0 - NofXd1_3);
+                NegNofXd2_3 = (1.0 - NofXd2_3);
+                OptionPrice3 = (FutureValueX3 * NegNofXd2_3) - (xStockPrice3 * NegNofXd1_3);
+            }
+
+            prices[i] = OptionPrice;
+            prices[i+1] = OptionPrice1;
+            prices[i+2] = OptionPrice2;
+            prices[i+3] = OptionPrice3;
+
+      
+ //===================================     
+      
+            fptype s = sptprice[i];
+            fptype s1 = sptprice[i+1];
+            fptype s2 = sptprice[i+2];
+            fptype s3 = sptprice[i+3];
+
+            fptype x =  strike[i];
+            fptype x1 =  strike[i+1];
+            fptype x2 =  strike[i+2];
+            fptype x3 =  strike[i+3];
+
+            fptype r = rate[i];
+            fptype r1 = rate[i+1];
+            fptype r2 = rate[i+2];
+            fptype r3 = rate[i+3];
+
+            fptype v=  volatility[i];
+            fptype v1 =  volatility[i+1];
+            fptype v2 =  volatility[i+2];
+            fptype v3 =  volatility[i+3];
+
+            fptype t= otime[i];
+            fptype t1 = otime[i+1];
+            fptype t2 = otime[i+2];
+            fptype t3 = otime[i+3];
+
+            int xType = otype[i] ;
+            int xType1 = otype[i+1];
+            int xType2 = otype[i+2];
+            int xType3 = otype[i+3];
+
+            r = r*t;
+            r1 = r1*t1;
+            r2 = r2*t2;
+            r3 = r3*t3;
+
+            t = sqrtf(t);
+            t1 = sqrtf(t1);
+            t2 = sqrtf(t2);
+            t3 = sqrtf(t3);
+
+            v = v*t;
+            v1 = v1*t1;
+            v2 = v2*t2;
+            v3 = v3*t3;
+
+            t = s/x;
+            t1 = s1/x1;
+            t2 = s2/x2;
+            t3 = s3/x3;
+
+            t = logf(t);
+            t1 = logf(t1);
+            t2 = logf(t2);
+            t3 = logf(t3);
+
+            t = t+r;
+            t1 = t1+r1;
+            t2 = t2+r2;
+            t3 = t3+r3;
+
+            r = -r;
+            r1 = -r1;
+            r2 = -r2;
+            r3 = -r3;
+
+            t = t/v;
+            t1 = t1/v1;
+            t2 = t2/v2;
+            t3 = t3/v3;
+
+            r = expf(r);
+            r1 = expf(r1);
+            r2 = expf(r2);
+            r3 = expf(r3);
+
+            r = r*x;
+            r1 = r1*x1;
+            r2 = r2*x2;
+            r3 = r3*x3;
+
+
+            v = v*h;
+            v1 = v1*h;
+            v2 = v2*h;
+            v3 = v3*h;
+
+            x = t+v;
+            x1 = t1+v1;
+            x2 = t2+v2;
+            x3 = t3+v3;
+
+            t = t-v;
+            t1 = t1-v1;
+            t2 = t2-v2;
+            t3 = t3-v3;
+
+
+            x = x*q;
+            x1 = x1*q;
+            x2 = x2*q;
+            x3 = x3*q;
+
+            t = t*q;
+            t1 = t1*q;
+            t2 = t2*q;
+            t3 = t3*q;
+
+            x = erfcf(x);
+            x1 = erfcf(x1);
+            x2 = erfcf(x2);
+            x3 = erfcf(x3);
+
+            t = erfcf(t);
+            t1 = erfcf(t1);
+            t2 = erfcf(t2);
+            t3 = erfcf(t3);
+
+            x = x*h;
+            x1 = x1*h;
+            x2 = x2*h;
+            x3 = x3*h;
+
+            t = t*h;
+            t1 = t1*h;
+            t2 = t2*h;
+            t3 = t3*h;
+
+            if (xType == 1){
+               x = 1-x;
+               t = 1-t;
+            }
+            if (xType1 == 1){
+               x1 = 1-x1;
+               t1 = 1-t1;
+            }
+            if (xType2 == 1){
+               x2 = 1-x2;
+               t2 = 1-t2;
+            }
+            if (xType3 == 1){
+               x3 = 1-x3;
+               t3 = 1-t3;
+            }
+
+            s = s*x;
+            s1 = s1*x1;
+            s2 = s2*x2;
+            s3 = s3*x3;
+
+            r = r*t;
+            r1 = r1*t1;
+            r2 = r2*t2;
+            r3 = r3*t3;
+
+            x = s-r;
+            x1 = s1-r1;
+            x2 = s2-r2;
+            x3 = s3-r3;
+
+
+            if (xType == 1){
+              x = -x;
+            }
+            if (xType1 == 1){
+              x1 = -x1;
+            }
+            if (xType2 == 1){
+              x2 = -x2;
+            }
+            if (xType3 == 1){
+              x3 = -x3;
+            }
+
+            prices[i] = x;
+            prices[i+1] = x1;
+            prices[i+2] = x2;
+            prices[i+3] = x3;
+ 
+      
+      
+  //=============
+  
+              fptype s = sptprice[i];
+            fptype s1 = sptprice[i+1];
+            fptype s2 = sptprice[i+2];
+            fptype s3 = sptprice[i+3];
+            fptype s4 = sptprice[i+4];
+            fptype s5 = sptprice[i+5];
+
+            fptype x =  strike[i];
+            fptype x1 =  strike[i+1];
+            fptype x2 =  strike[i+2];
+            fptype x3 =  strike[i+3];
+            fptype x4 =  strike[i+4];
+            fptype x5 =  strike[i+5];
+
+            fptype r = rate[i];
+            fptype r1 = rate[i+1];
+            fptype r2 = rate[i+2];
+            fptype r3 = rate[i+3];
+            fptype r4 = rate[i+4];
+            fptype r5 = rate[i+5];
+
+            fptype v=  volatility[i];
+            fptype v1 =  volatility[i+1];
+            fptype v2 =  volatility[i+2];
+            fptype v3 =  volatility[i+3];
+            fptype v4 =  volatility[i+4];
+            fptype v5 =  volatility[i+5];
+
+            fptype t= otime[i];
+            fptype t1 = otime[i+1];
+            fptype t2 = otime[i+2];
+            fptype t3 = otime[i+3];
+            fptype t4 = otime[i+4];
+            fptype t5 = otime[i+5];
+
+            int xType = otype[i] ;
+            int xType1 = otype[i+1];
+            int xType2 = otype[i+2];
+            int xType3 = otype[i+3];
+            int xType4 = otype[i+4];
+            int xType5 = otype[i+5];
+
+            r = r*t;
+            r1 = r1*t1;
+            r2 = r2*t2;
+            r3 = r3*t3;
+            r4 = r4*t4;
+            r5 = r5*t5;
+
+            t = sqrtf(t);
+            t1 = sqrtf(t1);
+            t2 = sqrtf(t2);
+            t3 = sqrtf(t3);
+            t4 = sqrtf(t4);
+            t5 = sqrtf(t5);
+
+            v = v*t;
+            v1 = v1*t1;
+            v2 = v2*t2;
+            v3 = v3*t3;
+            v4 = v4*t4;
+            v5 = v5*t5;
+
+            t = s/x;
+            t1 = s1/x1;
+            t2 = s2/x2;
+            t3 = s3/x3;
+            t4 = s4/x4;
+            t5 = s5/x5;
+
+            t = logf(t);
+            t1 = logf(t1);
+            t2 = logf(t2);
+            t3 = logf(t3);
+            t4 = logf(t4);
+            t5 = logf(t5);
+
+            t = t+r;
+            t1 = t1+r1;
+            t2 = t2+r2;
+            t3 = t3+r3;
+            t4 = t4+r4;
+            t5 = t5+r5;
+
+            r = -r;
+            r1 = -r1;
+            r2 = -r2;
+            r3 = -r3;
+            r4 = -r4;
+            r5 = -r5;
+
+            t = t/v;
+            t1 = t1/v1;
+            t2 = t2/v2;
+            t3 = t3/v3;
+            t4 = t4/v4;
+            t5 = t5/v5;
+
+            r = expf(r);
+            r1 = expf(r1);
+            r2 = expf(r2);
+            r3 = expf(r3);
+            r4 = expf(r4);
+            r5 = expf(r5);
+
+            r = r*x;
+            r1 = r1*x1;
+            r2 = r2*x2;
+            r3 = r3*x3;
+            r4 = r4*x4;
+            r5 = r5*x5;
+
+            v = v*h;
+            v1 = v1*h;
+            v2 = v2*h;
+            v3 = v3*h;
+            v4 = v4*h;
+            v5 = v5*h;
+
+            x = t+v;
+            x1 = t1+v1;
+            x2 = t2+v2;
+            x3 = t3+v3;
+            x4 = t4+v4;
+            x5 = t5+v5;
+
+            t = t-v;
+            t1 = t1-v1;
+            t2 = t2-v2;
+            t3 = t3-v3;
+            t4 = t4-v4;
+            t5 = t5-v5;
+
+
+            x = x*q;
+            x1 = x1*q;
+            x2 = x2*q;
+            x3 = x3*q;
+            x4 = x4*q;
+            x5 = x5*q;
+
+            t = t*q;
+            t1 = t1*q;
+            t2 = t2*q;
+            t3 = t3*q;
+            t4 = t4*q;
+            t5 = t5*q;
+
+            x = erfcf(x);
+            x1 = erfcf(x1);
+            x2 = erfcf(x2);
+            x3 = erfcf(x3);
+            x4 = erfcf(x4);
+            x5 = erfcf(x5);
+
+            t = erfcf(t);
+            t1 = erfcf(t1);
+            t2 = erfcf(t2);
+            t3 = erfcf(t3);
+            t4 = erfcf(t4);
+            t5 = erfcf(t5);
+
+            x = x*h;
+            x1 = x1*h;
+            x2 = x2*h;
+            x3 = x3*h;
+            x4 = x4*h;
+            x5 = x5*h;
+
+            t = t*h;
+            t1 = t1*h;
+            t2 = t2*h;
+            t3 = t3*h;
+            t4 = t4*h;
+            t5 = t5*h;
+
+            if (xType == 1){
+               x = 1-x;
+               t = 1-t;
+            }
+            if (xType1 == 1){
+               x1 = 1-x1;
+               t1 = 1-t1;
+            }
+            if (xType2 == 1){
+               x2 = 1-x2;
+               t2 = 1-t2;
+            }
+            if (xType3 == 1){
+               x3 = 1-x3;
+               t3 = 1-t3;
+            }
+            if (xType4 == 1){
+               x4 = 1-x4;
+               t4 = 1-t4;
+            }
+            if (xType5 == 1){
+               x5 = 1-x5;
+               t5 = 1-t5;
+            }
+
+            s = s*x;
+            s1 = s1*x1;
+            s2 = s2*x2;
+            s3 = s3*x3;
+            s4 = s4*x4;
+            s5 = s5*x5;
+
+            r = r*t;
+            r1 = r1*t1;
+            r2 = r2*t2;
+            r3 = r3*t3;
+            r4 = r4*t4;
+            r5 = r5*t5;
+
+            x = s-r;
+            x1 = s1-r1;
+            x2 = s2-r2;
+            x3 = s3-r3;
+            x4 = s4-r4;
+            x5 = s5-r5;
+
+
+            if (xType == 1){
+              x = -x;
+            }
+            if (xType1 == 1){
+              x1 = -x1;
+            }
+            if (xType2 == 1){
+              x2 = -x2;
+            }
+            if (xType3 == 1){
+              x3 = -x3;
+            }
+            if (xType2 == 1){
+              x4 = -x4;
+            }
+            if (xType3 == 1){
+              x5 = -x5;
+            }
+
+            prices[i] = x;
+            prices[i+1] = x1;
+            prices[i+2] = x2;
+            prices[i+3] = x3;
+            prices[i+4] = x4;
+            prices[i+5] = x5;    
+      
+      
+      
+      
+      
+      

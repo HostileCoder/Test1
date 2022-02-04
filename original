@@ -1,0 +1,280 @@
+    /*
+    fptype xQ2 = M_SQRT1_2;
+    for (int i=0; i<set_num; i+=4){
+
+        register fptype OptionPrice;
+        register fptype OptionPrice1;
+        register fptype OptionPrice2;
+        register fptype OptionPrice3;
+
+        register fptype xStockPrice;
+        register fptype xStockPrice1;
+        register fptype xStockPrice2;
+        register fptype xStockPrice3;
+
+        register fptype xStrikePrice ;
+        register fptype xStrikePrice1 ;
+        register fptype xStrikePrice2 ;
+        register fptype xStrikePrice3 ;
+
+        register fptype xRiskFreeRate ;
+        register fptype xRiskFreeRate1;
+        register fptype xRiskFreeRate2;
+        register fptype xRiskFreeRate3;
+
+        register fptype xVolatility ;
+        register fptype xVolatility1 ;
+        register fptype xVolatility2 ;
+        register fptype xVolatility3 ;
+
+        register fptype xTime ;
+        register fptype xTime1;
+        register fptype xTime2;
+        register fptype xTime3;
+
+        int xType ;
+        int xType1;
+        int xType2 ;
+        int xType3;
+
+        fptype xSqrtTime;
+        fptype xSqrtTime1;
+        fptype xSqrtTime2;
+        fptype xSqrtTime3;
+
+        fptype xLogTerm;
+        fptype xLogTerm1;
+        fptype xLogTerm2;
+        fptype xLogTerm3;
+
+        fptype xD1;
+        fptype xD1_1;
+        fptype xD1_2;
+        fptype xD1_3;
+
+        fptype xD2;
+        fptype xD2_1;
+        fptype xD2_2;
+        fptype xD2_3;
+
+        fptype xPowerTerm;
+        fptype xPowerTerm1;
+        fptype xPowerTerm2;
+        fptype xPowerTerm3;
+
+        fptype xDen;
+        fptype xDen1;
+        fptype xDen2;
+        fptype xDen3;
+
+        fptype FutureValueX;
+        fptype FutureValueX1;
+        fptype FutureValueX2;
+        fptype FutureValueX3;
+
+        fptype NofXd1;
+        fptype NofXd1_1;
+        fptype NofXd1_2;
+        fptype NofXd1_3;
+
+        fptype NofXd2;
+        fptype NofXd2_1;
+        fptype NofXd2_2;
+        fptype NofXd2_3;
+
+        fptype NegNofXd1;
+        fptype NegNofXd1_1;
+        fptype NegNofXd1_2;
+        fptype NegNofXd1_3;
+
+        fptype NegNofXd2;
+        fptype NegNofXd2_1;
+        fptype NegNofXd2_2;
+        fptype NegNofXd2_3;
+
+        fptype XeTerm;
+        fptype XeTerm1;
+        fptype XeTerm2;
+        fptype XeTerm3;
+
+        xStockPrice = args[i].s;
+        xStockPrice1 = args[i+1].s;
+        xStockPrice2 = args[i+2].s;
+        xStockPrice3 = args[i+3].s;
+
+        xStrikePrice =  args[i].strike;
+        xStrikePrice1 =  args[i+1].strike;
+        xStrikePrice2 =  args[i+2].strike;
+        xStrikePrice3 =  args[i+3].strike;
+
+        xRiskFreeRate = args[i].r;
+        xRiskFreeRate1 = args[i+1].r;
+        xRiskFreeRate2 = args[i+2].r;
+        xRiskFreeRate3 = args[i+3].r;
+
+        xVolatility =  args[i].v;
+        xVolatility1 =  args[i+1].v;
+        xVolatility2 =  args[i+2].v;
+        xVolatility3 =  args[i+3].v;
+
+        xTime = args[i].t;
+        xTime1 = args[i+1].t;
+        xTime2 = args[i+2].t;
+        xTime3 = args[i+3].t;
+
+        xType = ( args[i].OptionType == 'P') ? 1 : 0;
+        xType1 = ( args[i+1].OptionType == 'P') ? 1 : 0;
+        xType2 = ( args[i+2].OptionType == 'P') ? 1 : 0;
+        xType3 = ( args[i+3].OptionType == 'P') ? 1 : 0;
+
+        xSqrtTime = sqrt(xTime);
+        xSqrtTime1 = sqrt(xTime1);
+        xSqrtTime2 = sqrt(xTime2);
+        xSqrtTime3 = sqrt(xTime3);
+
+        xLogTerm =  xStockPrice / xStrikePrice;
+        xLogTerm1 = xStockPrice1 / xStrikePrice1;
+        xLogTerm2 = xStockPrice2 / xStrikePrice2;
+        xLogTerm3 = xStockPrice3 / xStrikePrice3;
+
+        xLogTerm =   log( xLogTerm );
+        xLogTerm1 =  log( xLogTerm1 );
+        xLogTerm2 =  log( xLogTerm2 );
+        xLogTerm3 =  log( xLogTerm3 );
+
+
+        xPowerTerm = xVolatility * xVolatility;
+        xPowerTerm1 = xVolatility1 * xVolatility1;
+        xPowerTerm2 = xVolatility2 * xVolatility2;
+        xPowerTerm3 = xVolatility3 * xVolatility3;
+
+        xPowerTerm = xPowerTerm * 0.5;
+        xPowerTerm1 = xPowerTerm1 * 0.5;
+        xPowerTerm2 = xPowerTerm2 * 0.5;
+        xPowerTerm3 = xPowerTerm3 * 0.5;
+
+        xD1 = xRiskFreeRate + xPowerTerm;
+        xD1_1 = xRiskFreeRate1 + xPowerTerm1;
+        xD1_2 = xRiskFreeRate2 + xPowerTerm2;
+        xD1_3 = xRiskFreeRate3 + xPowerTerm3;
+
+        xD1 = xD1 * xTime;
+        xD1_1 = xD1_1 * xTime1;
+        xD1_2 = xD1_2 * xTime2;
+        xD1_3 = xD1_3 * xTime3;
+
+        xD1 = xD1 + xLogTerm;
+        xD1_1 = xD1_1 + xLogTerm1;
+        xD1_2 = xD1_2 + xLogTerm2;
+        xD1_3 = xD1_3 + xLogTerm3;
+
+        xDen = xVolatility * xSqrtTime;
+        xDen1 = xVolatility1 * xSqrtTime1;
+        xDen2 = xVolatility2 * xSqrtTime2;
+        xDen3 = xVolatility3 * xSqrtTime3;
+
+        xD1 = xD1 / xDen;
+        xD1_1 = xD1_1 / xDen1;
+        xD1_2 = xD1_2 / xDen2;
+        xD1_3 = xD1_3 / xDen3;
+
+        xD2 = xD1 -  xDen;
+        xD2_1 = xD1_1 -  xDen1;
+        xD2_2 = xD1_2 -  xDen2;
+        xD2_3 = xD1_3 -  xDen3;
+
+        NofXd1 = -xD1*xQ2;
+        NofXd1_1 = -xD1_1*xQ2;
+        NofXd1_2 = -xD1_2*xQ2;
+        NofXd1_3 = -xD1_3*xQ2;
+
+        NofXd2 = -xD2*xQ2;
+        NofXd2_1 = -xD2_1*xQ2;
+        NofXd2_2 = -xD2_2*xQ2;
+        NofXd2_3 = -xD2_3*xQ2;
+
+        NofXd1 = erfc(NofXd1);
+        NofXd1_1 = erfc(NofXd1_1);
+        NofXd1_2 = erfc(NofXd1_2);
+        NofXd1_3 = erfc(NofXd1_3);
+
+        NofXd2 = erfc(NofXd2);
+        NofXd2_1 = erfc(NofXd2_1);
+        NofXd2_2 = erfc(NofXd2_2);
+        NofXd2_3 = erfc(NofXd2_3);
+
+
+        NofXd1 = NofXd1*0.5;
+        NofXd1_1 = NofXd1_1*0.5;
+        NofXd1_2 = NofXd1_2*0.5;
+        NofXd1_3 = NofXd1_3*0.5;
+
+
+        NofXd2 = NofXd2*0.5;
+        NofXd2_1 = NofXd2_1*0.5;
+        NofXd2_2 = NofXd2_2*0.5;
+        NofXd2_3 = NofXd2_3*0.5;
+
+        XeTerm = exp( -(xRiskFreeRate)*(xTime) );
+        XeTerm1 = exp( -(xRiskFreeRate1)*(xTime1) );
+        XeTerm2 = exp( -(xRiskFreeRate2)*(xTime2) );
+        XeTerm3 = exp( -(xRiskFreeRate3)*(xTime3) );
+
+        FutureValueX = xStrikePrice * XeTerm;
+        FutureValueX1 = xStrikePrice1 * XeTerm1;
+        FutureValueX2 = xStrikePrice2 * XeTerm2;
+        FutureValueX3 = xStrikePrice3 * XeTerm3;
+
+
+        if (xType == 0) {
+            OptionPrice = (xStockPrice * NofXd1) - (FutureValueX * NofXd2);
+        } else {
+            NegNofXd1 = (1.0 - NofXd1);
+            NegNofXd2 = (1.0 - NofXd2);
+            OptionPrice = (FutureValueX * NegNofXd2) - (xStockPrice * NegNofXd1);
+        }
+
+        if (xType1 == 0) {
+            OptionPrice1 = (xStockPrice1 * NofXd1_1) - (FutureValueX1 * NofXd2_1);
+        } else {
+            NegNofXd1_1 = (1.0 - NofXd1_1);
+            NegNofXd2_1 = (1.0 - NofXd2_1);
+            OptionPrice1 = (FutureValueX1 * NegNofXd2_1) - (xStockPrice1 * NegNofXd1_1);
+        }
+
+        if (xType2 == 0) {
+            OptionPrice2 = (xStockPrice2 * NofXd1_2) - (FutureValueX2 * NofXd2_2);
+        } else {
+            NegNofXd1_2 = (1.0 - NofXd1_2);
+            NegNofXd2_2 = (1.0 - NofXd2_2);
+            OptionPrice2 = (FutureValueX2 * NegNofXd2_2) - (xStockPrice2 * NegNofXd1_2);
+        }
+
+        if (xType3 == 0) {
+            OptionPrice3 = (xStockPrice3 * NofXd1_3) - (FutureValueX3 * NofXd2_3);
+        } else {
+            NegNofXd1_3 = (1.0 - NofXd1_3);
+            NegNofXd2_3 = (1.0 - NofXd2_3);
+            OptionPrice3 = (FutureValueX3 * NegNofXd2_3) - (xStockPrice3 * NegNofXd1_3);
+        }
+
+        result[i] =   OptionPrice;
+        result[i+1] =   OptionPrice1;
+        result[i+2] =   OptionPrice2;
+        result[i+3] =   OptionPrice3;
+    }
+*/
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
